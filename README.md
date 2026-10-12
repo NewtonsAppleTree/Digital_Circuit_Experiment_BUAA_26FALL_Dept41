@@ -39,3 +39,4 @@ Verilog Implementation of a Fully Pipelined Matrix Multiplier
 - [实验一参考手册：19 位并行前缀进位加法器](Reference/lab_1/Lab1_实验参考手册.md)
 - [实验二参考手册：8 位移位相加乘法器（Wallace 树）](Reference/lab_2/Lab2_实验参考手册.md)
 - [实验三参考手册：全流水脉动阵列矩阵乘法器](Reference/lab_3/Lab3_实验参考手册.md)
+- [数字电路实验参考手册（交付版，自包含）](Reference/manual/数字电路实验参考手册.md)：不依赖本仓库即可阅读使用，含全部原理、规格、关键代码、参考数据与插图；同目录附交付用 [docx](Reference/manual/数字电路实验参考手册.docx)（由 build_docx.py 自动生成）
