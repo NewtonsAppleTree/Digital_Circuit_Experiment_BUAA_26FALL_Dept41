@@ -1,0 +1,40 @@
+# ---- Simulation artifacts ----
+*.vcd
+*.fsdb
+*.vpd
+*.wlf
+*.shm
+work/
+transcript
+vsim.wlf
+novas*.log
+verdiLog/
+
+# ---- Vivado ----
+*.jou
+*.xpr
+*.xil
+.cache/
+.runs/
+.sim/
+.hw/
+.ip_user_files/
+*.backup.jou
+*.backup.log
+
+# ---- Quartus ----
+db/
+incremental_db/
+output_files/
+simulation/
+
+# ---- OS / Editor ----
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# ---- Python ----
+__pycache__/
+*.pyc
