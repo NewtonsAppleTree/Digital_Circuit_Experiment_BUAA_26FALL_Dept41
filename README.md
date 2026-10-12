@@ -31,3 +31,5 @@ Verilog Implementation of a Fully Pipelined Matrix Multiplier
 - [实验手册（原始中文版 docx）](Requirement/DigtalLab实验手册.docx)
 - [Lab Manual (English Translation)](Requirement/DigtalLabManual_EN.md)
 - [专业术语中英文对照表 (CN–EN Glossary)](Requirement/Terminology_CN_EN.md)
+- [VSCode Verilog 环境配置指南](Reference/env/VSCode_Verilog环境配置指南.md)（安装、PATH、插件）
+- [Verilog 工具使用指南](Reference/env/Verilog工具使用指南.md)（仿真、波形、综合用法）
