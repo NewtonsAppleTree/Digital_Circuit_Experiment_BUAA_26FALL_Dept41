@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "编译并运行仿真",
+      "type": "shell",
+      "command": "iverilog -g2005 -o sim/simv rtl/*.v tb/*.v; vvp sim/simv",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "查看波形",
+      "type": "shell",
+      "command": "gtkwave wave.vcd",
+      "problemMatcher": []
+    },
+    {
+      "label": "Yosys 综合",
+      "type": "shell",
+      "command": "yosys -p 'read_verilog rtl/*.v; synth; stat'",
+      "problemMatcher": []
+    }
+  ]
+}

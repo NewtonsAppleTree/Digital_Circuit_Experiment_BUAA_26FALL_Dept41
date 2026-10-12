@@ -4,11 +4,18 @@
 *.vpd
 *.wlf
 *.shm
+simv
+simv.exe
+*.out
 work/
 transcript
 vsim.wlf
 novas*.log
 verdiLog/
+
+# 各实验 sim/ 目录仅存放仿真产物，保留 .gitkeep
+lab_*/sim/*
+!lab_*/sim/.gitkeep
 
 # ---- Vivado ----
 *.jou
@@ -33,7 +40,11 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 .vscode/
+!Reference/env/templates/.vscode/
 .idea/
+
+# ---- Misc ----
+yosys_log.txt
 
 # ---- Python ----
 __pycache__/
