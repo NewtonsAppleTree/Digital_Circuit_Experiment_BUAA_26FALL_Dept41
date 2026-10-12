@@ -1,0 +1,9 @@
+# Lab 3 (standalone 独立版) Yosys 综合脚本
+# 用法（在 lab_3_standalone/syn/ 目录下）：yosys synth.ys
+# 自包含：仅读入本目录 RTL，不依赖 Lab 1 / Lab 2。
+# 注意：synth 带 -flatten，让 ABC 在整平设计上全局优化。
+
+read_verilog ../rtl/MULT.v ../rtl/PE.v
+synth -top MULT -flatten
+tee -o systolic_stat.txt stat
+tee -o systolic_ltp.txt ltp -noff

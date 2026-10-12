@@ -1,6 +1,8 @@
-# Lab 3：全流水脉动阵列矩阵乘法器
+# Lab 3（reuse 复用版）：全流水脉动阵列矩阵乘法器
 
-**Fully Pipelined Systolic-Array Matrix Multiplier**
+**Fully Pipelined Systolic-Array Matrix Multiplier — Reuse Version**
+
+> 双版本说明：本目录为**复用版**，PE 结构实例化 Lab 2 的 Wallace 乘法器与 Lab 1 的前缀加法器，体现"加法器→乘法器→矩阵计算阵列"课程路径；另有自包含的 [lab_3_standalone](../lab_3_standalone) 独立版，接口、时序、测试平台与本版本一致。
 
 - 完成两个 4×4 无符号整数矩阵相乘的脉动阵列矩阵乘法器
 - 采用固定权重（Weight-Stationary）、输入输出流动的方式

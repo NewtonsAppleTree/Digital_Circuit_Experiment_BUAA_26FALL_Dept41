@@ -1,0 +1,29 @@
+
+4. Printing statistics.
+
+=== MULT ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     5802 wires
+    11286 wire bits
+      235 public wires
+     2988 public wire bits
+        6 ports
+      563 port bits
+     7709 cells
+       66   $_ANDNOT_
+     1510   $_AND_
+      105   $_MUX_
+     2226   $_NAND_
+       44   $_NOR_
+        4   $_NOT_
+        6   $_ORNOT_
+      394   $_OR_
+      432   $_SDFFE_PN0P_
+        4   $_SDFFE_PP0N_
+      720   $_SDFF_PP0_
+      630   $_XNOR_
+     1552   $_XOR_
+       16   $scopeinfo
+
