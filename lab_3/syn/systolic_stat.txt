@@ -1,29 +1,29 @@
 
-5. Printing statistics.
+7. Printing statistics.
 
 === MULT ===
 
         +----------Local Count, excluding submodules.
         | 
-     6128 wires
-    12691 wire bits
-      243 public wires
-     3052 public wire bits
+     7922 wires
+    34233 wire bits
+     1739 public wires
+    28040 public wire bits
         6 ports
       563 port bits
-     8268 cells
-      147   $_ANDNOT_
-     1523   $_AND_
-       96   $_MUX_
-     2465   $_NAND_
-       16   $_NOR_
-        2   $_NOT_
-       34   $_ORNOT_
-      353   $_OR_
+     8547 cells
+      190   $_ANDNOT_
+     2068   $_AND_
+      121   $_MUX_
+     2276   $_NAND_
+       41   $_NOR_
+       18   $_NOT_
+      247   $_ORNOT_
+      863   $_OR_
       432   $_SDFFE_PN0P_
         4   $_SDFFE_PP0N_
-      776   $_SDFF_PP0_
-      721   $_XNOR_
-     1683   $_XOR_
-       16   $scopeinfo
+      720   $_SDFF_PP0_
+      917   $_XNOR_
+      490   $_XOR_
+      160   $scopeinfo
 

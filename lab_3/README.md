@@ -17,7 +17,12 @@
 | ---- | ---- |
 | 功能仿真（iverilog + vvp） | 单位矩阵单发、**双矩阵 II=4 连续流水**、换权重后再计算，**三组检查全部 0 错误 PASS** |
 | 输出有效时刻 | 首次 `t=10` 整组锁存，此后每 4 拍更新（连续矩阵流） |
-| 综合（Yosys ABC，flatten） | **8268 cells**，最长拓扑路径 **40 级**（= 单个 PE 的乘加路径，流水寄存器有效切断长组合路径） |
+| 综合（Yosys ABC，`synth -flatten`） | **8547 cells**，最长拓扑路径 **37 级**（= 单个 PE 内"Wallace 乘法 + Kogge-Stone 加法"的组合路径，流水寄存器将其与阵列规模解耦） |
+
+**课程路径连贯复用**：PE 的乘加运算不是行为级 `*`/`+`，而是结构实例化前两个实验的电路（数据流原理见手册参考资料 [8] 脉动阵列架构图解）：
+
+- `w * x` → Lab 2 的 [MULT8_WALLACE.v](../lab_2/rtl/MULT8_WALLACE.v)（8 位 Wallace 树乘法器）
+- `p_in + 积` → Lab 1 的 [ADDER.v](../lab_1/rtl/ADDER.v)（19 位 Kogge-Stone 前缀加法器）
 
 关键设计约定（详见 [rtl/MULT.v](rtl/MULT.v) 头部注释）：
 
@@ -28,8 +33,8 @@
 复现命令：
 
 ```bash
-# 功能仿真（在 lab_3/sim/ 下）
-iverilog -g2005 -o simv ../rtl/MULT.v ../rtl/PE.v ../tb/tb_MULT.v
+# 功能仿真（在 lab_3/sim/ 下，需带上复用的 Lab1/Lab2 模块）
+iverilog -g2005 -o simv ../rtl/MULT.v ../rtl/PE.v ../../lab_2/rtl/MULT8_WALLACE.v ../../lab_2/rtl/CSA.v ../../lab_1/rtl/ADDER.v ../tb/tb_MULT.v
 vvp simv
 # 综合（在 lab_3/syn/ 下）
 yosys synth.ys

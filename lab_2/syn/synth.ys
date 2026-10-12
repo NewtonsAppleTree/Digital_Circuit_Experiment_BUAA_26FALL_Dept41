@@ -1,15 +1,20 @@
 # Lab 2 Yosys 综合脚本
 # 用法（在 lab_2/syn/ 目录下）：yosys synth.ys
-# 分别综合 Wallace 树乘法器与朴素移位相加乘法器，
-# 输出资源统计（stat）与最长拓扑路径（ltp）。
+# 分别综合 Wallace 树乘法器与朴素连加参照组，
+# 输出两者的资源统计与最长拓扑路径（LTP），用于对比报告。
+# 注意：synth 必须带 -flatten，让 ABC 在整平设计上全局优化，
+# 否则跨模块边界的映射会失真（LTP 明显偏大）。
 
-read_verilog ../rtl/MULT.v ../rtl/CSA.v ../../lab_1/rtl/ADDER.v
-synth -top MULT
+read_verilog ../rtl/MULT.v ../rtl/MULT8_WALLACE.v ../rtl/MULT_NAIVE.v ../rtl/CSA.v ../../lab_1/rtl/ADDER.v
+
+# ---- Wallace 树乘法器 ----
+synth -top MULT -flatten
 tee -o wallace_stat.txt stat
 tee -o wallace_ltp.txt ltp -noff
 
+# ---- 朴素连加参照组 ----
 design -reset
 read_verilog ../rtl/MULT_NAIVE.v
-synth -top MULT_NAIVE
+synth -top MULT_NAIVE -flatten
 tee -o naive_stat.txt stat
 tee -o naive_ltp.txt ltp -noff

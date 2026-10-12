@@ -163,3 +163,4 @@
 | 查尔斯·E·雷瑟森 | Charles E. Leiserson | 脉动阵列提出者之一 |
 | C. S. 华莱士 | C. S. Wallace | 华莱士树快速乘法（1964） |
 | 《面向 VLSI 的脉动阵列》 | *Systolic Arrays (for VLSI)* | CMU-CS-79-103，1978 年初稿 |
+| 脉动阵列架构图解（Telesens 教程） | *Systolic Architectures* (Telesens) | 脉动阵列数据流图解教程，实验三设计参考 [8] |

@@ -176,7 +176,7 @@ If only a few arithmetic units are reused to sequentially complete all the MACs,
 
 H. T. Kung and Charles E. Leiserson proposed and developed the systolic-array concept in the late 1970s, combining regularly connected processing elements with data flowing in rhythm. The first draft of their report *Systolic Arrays (for VLSI)* is dated 1978, with report number CMU-CS-79-103. This structure coordinates computation with local data transfer, providing an organization suitable for VLSI implementation of repetitive numerical computations. [6]
 
-A weight-stationary systolic array keeps the weights inside the processing elements so that multiple batches of inputs reuse the loaded weights; inputs and partial sums are transferred between adjacent units on clock beats, and the pipeline overlaps the computation of different data. Its advantages are regular local connections, weight reuse, and continuous computing capability. The actual benefit depends on input scheduling, array utilization, and weight-swapping overhead; sustained throughput cannot be inferred from the number of MAC units alone.
+A weight-stationary systolic array keeps the weights inside the processing elements so that multiple batches of inputs reuse the loaded weights; inputs and partial sums are transferred between adjacent units on clock beats, and the pipeline overlaps the computation of different data. Its advantages are regular local connections, weight reuse, and continuous computing capability. The actual benefit depends on input scheduling, array utilization, and weight-swapping overhead; sustained throughput cannot be inferred from the number of MAC units alone. [8]
 
 Google's first-generation TPU adopted a 256 × 256 matrix-computing structure and is a representative example of systolic arrays used for AI computing. [7] This lab presents the same kind of core problems with a 4 × 4 array: how computation is mapped to processing elements, how inputs and partial sums are aligned, and how the pipeline keeps running. For tasks such as attention, where operands vary with the input, the reuse opportunities of resident weights must also be analyzed. Completing this lab will establish a foundation for further study of memory, scheduling, and operator organization in AI chips.
 
@@ -274,3 +274,6 @@ The full list of materials cited in the text, with complete URLs, is given below
 
 [7] Google's First-Generation TPU Architecture Description
 <https://cloud.google.com/blog/products/ai-machine-learning/an-in-depth-look-at-googles-first-tensor-processing-unit-tpu>
+
+[8] Illustrated Systolic Architectures (Telesens)
+<https://telesens.co/2018/07/30/systolic-architectures/>

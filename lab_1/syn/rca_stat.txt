@@ -1,5 +1,5 @@
 
-3. Printing statistics.
+7. Printing statistics.
 
 === ADDER_RCA ===
 

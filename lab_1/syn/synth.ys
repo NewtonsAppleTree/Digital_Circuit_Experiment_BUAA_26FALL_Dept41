@@ -1,18 +1,16 @@
 # Lab 1 Yosys 综合脚本
-# 用法（在 lab_1/syn/ 目录下）：
-#   yosys synth.ys            # 综合 Kogge-Stone (ADDER)
-#   yosys -p "script synth.ys rca" 或手动替换 TOP/RTL 变量
-# 分别综合两个顶层并输出资源统计与最长拓扑路径：
-#   yosys -p "read_verilog ../rtl/ADDER_RCA.v; synth -top ADDER_RCA; stat; ltp -noff"
-#   yosys -p "read_verilog ../rtl/ADDER.v;     synth -top ADDER;     stat; ltp -noff"
+# 用法（在 lab_1/syn/ 目录下）：yosys synth.ys
+# 分别综合 Kogge-Stone 前缀加法器与串行进位参照组，
+# 输出两者的资源统计与最长拓扑路径（LTP），用于对比报告。
+# 注：synth 带 -flatten 可让 ABC 在整平设计上全局优化（本实验为单模块，无实际差异）。
 
 read_verilog ../rtl/ADDER.v
-synth -top ADDER
+synth -top ADDER -flatten
 tee -o ks_stat.txt stat
 tee -o ks_ltp.txt ltp -noff
 
 design -reset
 read_verilog ../rtl/ADDER_RCA.v
-synth -top ADDER_RCA
+synth -top ADDER_RCA -flatten
 tee -o rca_stat.txt stat
 tee -o rca_ltp.txt ltp -noff

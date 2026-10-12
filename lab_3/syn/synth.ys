@@ -1,9 +1,10 @@
 # Lab 3 Yosys 综合脚本
 # 用法（在 lab_3/syn/ 目录下）：yosys synth.ys
-# 综合脉动阵列顶层 MULT，输出资源统计与最长拓扑路径。
+# 综合脉动阵列顶层 MULT（PE 复用 Lab2 MULT8_WALLACE 与 Lab1 ADDER），
+# 输出资源统计与最长拓扑路径。
+# 注意：synth 必须带 -flatten，让 ABC 在整平设计上全局优化。
 
-read_verilog ../rtl/MULT.v ../rtl/PE.v
-synth -top MULT
-flatten
+read_verilog ../rtl/MULT.v ../rtl/PE.v ../../lab_2/rtl/MULT8_WALLACE.v ../../lab_2/rtl/CSA.v ../../lab_1/rtl/ADDER.v
+synth -top MULT -flatten
 tee -o systolic_stat.txt stat
 tee -o systolic_ltp.txt ltp -noff
