@@ -1,0 +1,21 @@
+
+3. Printing statistics.
+
+=== MULT_NAIVE ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      333 wires
+      446 wire bits
+       11 public wires
+      124 public wire bits
+        3 ports
+       32 port bits
+      338 cells
+        1   $_ANDNOT_
+       78   $_AND_
+      146   $_NAND_
+        2   $_OR_
+       10   $_XNOR_
+      101   $_XOR_
+

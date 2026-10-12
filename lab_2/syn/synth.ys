@@ -1,0 +1,15 @@
+# Lab 2 Yosys 综合脚本
+# 用法（在 lab_2/syn/ 目录下）：yosys synth.ys
+# 分别综合 Wallace 树乘法器与朴素移位相加乘法器，
+# 输出资源统计（stat）与最长拓扑路径（ltp）。
+
+read_verilog ../rtl/MULT.v ../rtl/CSA.v ../../lab_1/rtl/ADDER.v
+synth -top MULT
+tee -o wallace_stat.txt stat
+tee -o wallace_ltp.txt ltp -noff
+
+design -reset
+read_verilog ../rtl/MULT_NAIVE.v
+synth -top MULT_NAIVE
+tee -o naive_stat.txt stat
+tee -o naive_ltp.txt ltp -noff
