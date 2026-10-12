@@ -25,6 +25,6 @@ Verilog Implementation of a Fully Pipelined Matrix Multiplier
 
 ## 文档 | Documents
 
-- [实验手册（原始中文版 docx）](Requirement/Lab1_实验手册.docx)
-- [Lab Manual (English Translation)](Requirement/Lab1_Lab_Manual_EN.md)
+- [实验手册（原始中文版 docx）](Requirement/Digtal实验手册.docx)
+- [Lab Manual (English Translation)](Requirement/DigtalLabManual_EN.md)
 - [专业术语中英文对照表 (CN–EN Glossary)](Requirement/Terminology_CN_EN.md)

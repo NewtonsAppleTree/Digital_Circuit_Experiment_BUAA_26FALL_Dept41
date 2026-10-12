@@ -1,7 +1,7 @@
 # 专业术语中英文对照表
 # Glossary of Technical Terms (Chinese–English)
 
-> 适用文档：《Lab1 实验手册》英文版（Lab1_Lab_Manual_EN.md）
+> 适用文档：《数字电路实验手册》英文版（DigtalLabManual_EN.md）
 > 覆盖范围：课程背景、实验一（并行前缀进位加法器）、实验二（移位相加乘法器）、实验三（全流水脉动阵列矩阵乘法器）
 
 ---
