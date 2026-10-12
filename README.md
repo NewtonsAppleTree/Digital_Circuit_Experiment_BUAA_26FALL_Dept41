@@ -33,3 +33,9 @@ Verilog Implementation of a Fully Pipelined Matrix Multiplier
 - [专业术语中英文对照表 (CN–EN Glossary)](Requirement/Terminology_CN_EN.md)
 - [VSCode Verilog 环境配置指南](Reference/env/VSCode_Verilog环境配置指南.md)（安装、PATH、插件）
 - [Verilog 工具使用指南](Reference/env/Verilog工具使用指南.md)（仿真、波形、综合用法）
+
+## 实验参考手册 | Lab Reference Manuals
+
+- [实验一参考手册：19 位并行前缀进位加法器](Reference/lab_1/Lab1_实验参考手册.md)
+- [实验二参考手册：8 位移位相加乘法器（Wallace 树）](Reference/lab_2/Lab2_实验参考手册.md)
+- [实验三参考手册：全流水脉动阵列矩阵乘法器](Reference/lab_3/Lab3_实验参考手册.md)
