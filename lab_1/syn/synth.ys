@@ -1,0 +1,18 @@
+# Lab 1 Yosys 综合脚本
+# 用法（在 lab_1/syn/ 目录下）：
+#   yosys synth.ys            # 综合 Kogge-Stone (ADDER)
+#   yosys -p "script synth.ys rca" 或手动替换 TOP/RTL 变量
+# 分别综合两个顶层并输出资源统计与最长拓扑路径：
+#   yosys -p "read_verilog ../rtl/ADDER_RCA.v; synth -top ADDER_RCA; stat; ltp -noff"
+#   yosys -p "read_verilog ../rtl/ADDER.v;     synth -top ADDER;     stat; ltp -noff"
+
+read_verilog ../rtl/ADDER.v
+synth -top ADDER
+tee -o ks_stat.txt stat
+tee -o ks_ltp.txt ltp -noff
+
+design -reset
+read_verilog ../rtl/ADDER_RCA.v
+synth -top ADDER_RCA
+tee -o rca_stat.txt stat
+tee -o rca_ltp.txt ltp -noff

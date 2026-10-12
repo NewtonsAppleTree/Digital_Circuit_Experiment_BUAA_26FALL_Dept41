@@ -1,0 +1,17 @@
+
+3. Printing statistics.
+
+=== ADDER_RCA ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       81 wires
+      154 wire bits
+        6 public wires
+       79 public wire bits
+        5 ports
+       59 port bits
+       95 cells
+       57   $_NAND_
+       38   $_XOR_
+
