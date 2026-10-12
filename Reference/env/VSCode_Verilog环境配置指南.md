@@ -66,6 +66,8 @@ gtkwave --version  # 波形查看器
 
 > 提示"不是内部或外部命令"→ PATH 未生效：检查环境变量是否写入、路径是否含中文/空格、是否重开了终端。
 
+> **GTKWave 双击/启动后闪退、无任何窗口**（实测踩坑）：退出码 `0xC0000135`（-1073741515），即 **DLL 缺失**。原因是 PATH 只加了 `bin` 没加 `lib`——GTKWave 是 MinGW 程序，运行所需的 GTK/TCL 动态库在 `lib` 目录。**`bin` 和 `lib` 必须同时加入 PATH**，然后重开终端。启动时若打印 `GLib-GIO-WARNING: win32 session dbus binary not found` 属正常现象，不影响使用。
+
 ---
 
 ## 2. 安装 VSCode 插件（必装 3 个）
