@@ -113,7 +113,7 @@ gtkwave wave.vcd wave.gtkw      # 打开即有完整波形视图
 | Wallace vs 朴素连加乘法器 | 381 vs 338 | **28 vs 37** | 压缩树对数深度 vs 连加线性深度 |
 | Lab 3 脉动阵列 | 8547 | **37（单拍）** | 流水寄存器把关键路径限制在单个 PE 内，与阵列规模无关 |
 
-> **常见坑**：综合脚本要写 `synth -top XXX -flatten`（先整平再让 ABC 全局优化）。
+> **注意**：综合脚本必须 `synth -top XXX -flatten`（先整平再让 ABC 全局优化）。
 > 若写成 `synth; flatten`（先映射后整平），ABC 无法跨模块边界优化，LTP 会明显失真偏大。
 >
 > 想看综合后原理图：`yosys -p "read_verilog ../rtl/xxx.v; synth -top XXX -flatten; show"`。
