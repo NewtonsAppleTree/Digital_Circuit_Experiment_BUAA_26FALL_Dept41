@@ -13,9 +13,10 @@ vsim.wlf
 novas*.log
 verdiLog/
 
-# 各实验 sim/ 目录仅存放仿真产物，保留 .gitkeep
+# 各实验 sim/ 目录仅存放仿真产物，保留 .gitkeep 与 GTKWave 视图配置
 lab_*/sim/*
 !lab_*/sim/.gitkeep
+!lab_*/sim/*.gtkw
 
 # ---- Vivado ----
 *.jou

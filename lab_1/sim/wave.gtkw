@@ -1,0 +1,27 @@
+[*]
+[*] GTKWave Analyzer v4.0.0-prealpha
+[dumpfile] "wave.vcd"
+[timestart] 0
+[size] 1600 900
+[pos] -1 -1
+*-5.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_ADDER.
+[sst_width] 260
+[signals_width] 240
+[sst_expanded] 1
+[sst_vpaned_height] 280
+@28
+tb_ADDER.in1[18:0]
+tb_ADDER.in2[18:0]
+tb_ADDER.cin
+tb_ADDER.sum_ks[18:0]
+tb_ADDER.cout_ks
+@200
+-
+@28
+tb_ADDER.sum_rca[18:0]
+tb_ADDER.cout_rca
+@200
+-
+@28
+tb_ADDER.ref[19:0]
