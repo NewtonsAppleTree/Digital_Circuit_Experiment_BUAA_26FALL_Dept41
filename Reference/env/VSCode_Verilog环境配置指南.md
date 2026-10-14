@@ -99,18 +99,58 @@ code --install-extension usernamehw.errorlens
 
 ---
 
-## 3. 环境全链路验证（必做）
+## 3. 环境自检：极小示例（必做）
 
-用仓库自带的 4 位加法器示例验证「编译 → 仿真 → 波形 → 综合」全链路。
-示例位于 [`Reference/env/test_adder/`](test_adder/)：
+安装完成后，用一个**极小 case** 自我检查「编译 → 仿真 → 波形 → 综合」全链路。
+仓库自带该示例（[`Reference/env/test_adder/`](test_adder/)），也可按下文直接新建两个文件。
 
+`adder4.v`（设计，完整内容）：
+
+```verilog
+module adder4 (
+    input  [3:0] a,
+    input  [3:0] b,
+    input        cin,
+    output [3:0] sum,
+    output       cout
+);
+
+assign {cout, sum} = a + b + cin;
+
+endmodule
 ```
-test_adder/
-├── rtl/adder4.v      # 设计代码
-└── tb/tb_adder4.v    # 测试激励（含 $dumpfile 波形输出）
+
+`tb_adder4.v`（激励，完整内容；含波形输出）：
+
+```verilog
+`timescale 1ns/1ps
+module tb_adder4;
+reg  [3:0] a;  reg [3:0] b;  reg cin;
+wire [3:0] sum;  wire cout;
+
+adder4 u_adder4 (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
+
+initial begin
+    $dumpfile("wave.vcd");
+    $dumpvars(0, tb_adder4);
+end
+
+initial begin
+    a = 4'd0;  b = 4'd0;  cin = 1'b0;
+    #10;
+    a = 4'd3;  b = 4'd5;              // 预期 sum=8,  cout=0
+    #10;
+    a = 4'd15; b = 4'd1;              // 预期 sum=0,  cout=1
+    #10;
+    a = 4'd12; b = 4'd7;  cin = 1'b1; // 预期 sum=4,  cout=1
+    #10;
+    $display("Simulation finished, check waveform.");
+    $finish;
+end
+endmodule
 ```
 
-在 `test_adder/` 目录下打开终端执行：
+在工程目录下打开终端执行：
 
 ```bash
 # 1. 编译（-g2005 显式指定 Verilog-2005 标准，避免默认标准差异）
@@ -127,7 +167,7 @@ gtkwave wave.vcd
 
 ```text
 VCD info: dumpfile wave.vcd opened for output.
-Simulation finished check waveform.
+Simulation finished, check waveform.
 tb/tb_adder4.v:37: $finish called at 40000 (1ps)
 ```
 
@@ -206,11 +246,11 @@ lab1_adder/
 
 ---
 
-## 6. 本课程环境实测记录（2026-10-12）
+## 6. 本课程环境实测记录
 
 | 项目 | 版本 / 路径 | 验证结果 |
 | ---- | ---- | ---- |
-| OSS CAD Suite | 2026-10-11，`D:\Tools\oss-cad-suite` | ✅ |
+| OSS CAD Suite | `D:\Tools\oss-cad-suite` | ✅ |
 | Icarus Verilog | 14.0 (devel) | ✅ 编译通过 |
 | vvp | 14.0 | ✅ 仿真、VCD 输出正确 |
 | Yosys | （套件内置） | ✅ adder4 综合：12 NAND + 8 XOR，0 problems |

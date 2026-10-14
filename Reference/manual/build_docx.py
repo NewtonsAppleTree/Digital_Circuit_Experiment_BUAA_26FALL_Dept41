@@ -142,7 +142,7 @@ def make_cover(doc):
     for _ in range(6):
         doc.add_paragraph()
     for line in ("课程名称：数字电路实验", "适用对象：2026 秋 · 41 系",
-                 "编制单位：课程教学组", "版本日期：2026 年 10 月"):
+                 "编制单位：课程教学组"):
         p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         set_run(p.add_run(line), 12)
     add_page_break(doc)
