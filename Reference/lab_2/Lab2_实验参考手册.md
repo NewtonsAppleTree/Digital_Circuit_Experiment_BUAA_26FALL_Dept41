@@ -102,6 +102,24 @@ vvp simv        # 期望: Errors: 0 / RESULT: PASS
 
 实测：**65536 组全部正确**（Wallace 与朴素两个 DUT 同时过）。
 
+**预期终端输出**（自检基准，应逐字一致）：
+
+```text
+VCD info: dumpfile wave.vcd opened for output.
+==============================================
+Total vectors : 65545
+Errors        : 0
+RESULT: PASS
+==============================================
+../tb/tb_MULT.v:72: $finish called at 65545000 (1ps)
+```
+
+**预期波形**（定向激励段 0–10 ns，每 1 ns 一组定向向量）：
+
+![实验二仿真波形](images/fig_lab2_waveform.png)
+
+可逐项核对：`FF×FF=FE01`（255×255=65025）、`80×02=0100`（128×2=256，进位传播）、`AA×55=3872`（170×85=14450）。`ref` 为行为级参考（比激励晚 1 ns 采样，属 tb 设计），`res` 与 `ref` 逐拍相等即正确。你的波形数值应与图中**逐拍一致**。
+
 ## 5. 综合结果与解读
 
 ```bash
@@ -112,6 +130,21 @@ cd lab_2/syn && yosys synth.ys   # 分别综合两个设计，生成 stat 与 lt
 | ---- | ---- | ---- | ---- |
 | Wallace 树 | **381** | **28 级** | 4 层 CSA + 前缀加法 |
 | 朴素连加 | **338** | **37 级** | 7 个加法器串联 |
+
+`wallace_stat.txt` 关键段落（`yosys synth.ys` 生成，全文见该文件）：
+
+```text
+=== MULT ===
+      433 wires
+      381 cells
+       96   $_AND_
+      144   $_NAND_
+       ...
+```
+
+`wallace_ltp.txt` 首行：`Longest topological path in MULT (length=28):`
+
+> 不同版本工具链数值可能略有出入（±5% 以内可接受），但 Wallace「路径更短、单元略多」的相对结论必须成立。
 
 **思考题（理论层数与实际性能的关系）参考分析**：
 

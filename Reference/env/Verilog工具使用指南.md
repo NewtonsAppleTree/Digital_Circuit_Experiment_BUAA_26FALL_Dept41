@@ -33,6 +33,28 @@ RTL 源码 (.v) ──iverilog 编译──> simv ──vvp 运行──> 终端
 
 仿真成功的标志是终端打印 `RESULT: PASS`；失败会逐条打印 `[ERROR] ...` 明细。
 
+各实验预期终端输出（自检基准，应逐字一致）：
+
+```text
+── Lab 1 ──────────────────────────────────────
+Total vectors : 10010
+Kogge-Stone   : 0 errors
+Ripple-Carry  : 0 errors
+RESULT: PASS
+── Lab 2 ──────────────────────────────────────
+Total vectors : 65545
+Errors        : 0
+RESULT: PASS
+── Lab 3（复用版 / 独立版输出相同）────────────
+[CHECK] matrix m0: res correct at t=10
+[CHECK] matrix m1: res correct at t=14
+[CHECK] matrix m2: res correct at t=10
+Errors : 0
+RESULT: PASS
+```
+
+（首行 `VCD info: dumpfile wave.vcd opened for output.` 与末行 `$finish called at ...` 均会出现，属正常。）
+
 ## 3. Testbench 说明
 
 三个实验的 tb 已随仓库提供，**不需要额外设置**，均具备：
@@ -105,6 +127,18 @@ gtkwave wave.vcd wave.gtkw      # 打开即有完整波形视图
 | `*_stat.txt` | 资源统计 | `cells` 总数（面积代理指标）、`$_AND_`/`$_XOR_` 等门类型明细、`$_SDFF_` 触发器数量（时序逻辑规模） |
 | `*_ltp.txt` | 最长拓扑路径 | `Longest topological path (length=N)` —— N 即关键路径级数，下方逐级列出经过的每个门 |
 
+Lab 1 实测样例（`ks_stat.txt` / `ks_ltp.txt` 节选）：
+
+```text
+=== ADDER ===
+      133 wires
+      147 cells
+       43   $_AND_
+       60   $_NAND_
+       ...
+Longest topological path in ADDER (length=27):
+```
+
 典型结论（本仓库实测，`synth -flatten`）：
 
 | 对比 | cells | 最长路径 | 结论 |
@@ -144,6 +178,7 @@ gtkwave wave.vcd wave.gtkw      # 打开即有完整波形视图
 | `vvp` 运行不退出 | tb 缺 `$finish;` |
 | 终端提示命令不存在 | PATH 未生效：**关闭终端重开**；仍不行检查路径是否含中文/空格 |
 | `synth` 后 LTP 与理论层数对不上 | 检查是否用了 `synth -flatten`；ABC 重构后门级路径与理论层数本就不是一一对应 |
+| ABC 阶段报 `return code -2`、综合中断 | 终端激活了 conda `(base)` 环境，其 MinGW 动态库与 `yosys-abc.exe` 冲突；`conda deactivate` 后重跑，或新开不激活 conda 的终端 |
 
 ## 8. 相关文档
 

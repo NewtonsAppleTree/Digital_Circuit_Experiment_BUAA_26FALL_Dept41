@@ -105,6 +105,25 @@ gtkwave wave.vcd wave.gtkw   # 可选：看波形（视图已配好）
 
 实测：**10010 个向量全部正确**。
 
+**预期终端输出**（自检基准，应逐字一致）：
+
+```text
+VCD info: dumpfile wave.vcd opened for output.
+==============================================
+Total vectors : 10010
+Kogge-Stone   : 0 errors
+Ripple-Carry  : 0 errors
+RESULT: PASS
+==============================================
+../tb/tb_ADDER.v:103: $finish called at 100100000 (1ps)
+```
+
+**预期波形**（定向激励段 0–100 ns，每 10 ns 施加一组定向向量）：
+
+![实验一仿真波形](images/fig_lab1_waveform.png)
+
+可逐项核对：40–50 ns 处 `7FFFF+7FFFF+cin=1` → `sum=7FFFF`、`cout=1`；70–80 ns 处交替进位链 `55555+2AAAA` → `sum=7FFFF`、`cout=0`；80–90 ns 处 `2AAAA+55555+1` → `sum=00000`、`cout=1`（进位贯穿全链）。随机段 tb 执行了 `$dumpoff` 不记录波形，属设计意图。你的波形数值应与图中**逐拍一致**。
+
 ## 5. 综合结果与解读
 
 ```bash
@@ -115,6 +134,21 @@ cd lab_1/syn && yosys synth.ys   # 生成 ks_/rca_ 的 stat 与 ltp
 | ---- | ---- | ---- | ---- |
 | Kogge–Stone | **147** | **27 级** | 用 55% 额外面积换 31% 路径缩短 |
 | 串行 RCA | **95** | **39 级** | 面积最省，路径随位数线性增长 |
+
+`ks_stat.txt` 关键段落（`yosys synth.ys` 生成，全文见该文件）：
+
+```text
+=== ADDER ===
+      133 wires
+      147 cells
+       43   $_AND_
+       60   $_NAND_
+       ...
+```
+
+`ks_ltp.txt` 首行：`Longest topological path in ADDER (length=27):`
+
+> 不同版本工具链数值可能略有出入（±5% 以内可接受），但 KS「路径更短、单元更多」的相对结论必须成立，否则应检查综合脚本。
 
 结果分析要点：
 

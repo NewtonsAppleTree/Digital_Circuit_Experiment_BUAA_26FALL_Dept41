@@ -135,6 +135,31 @@ vvp simv
 实测：**三场景 48 个字段全部 0 错误 PASS**。
 波形解读示例见 [工具使用指南 §4.3](../env/Verilog工具使用指南.md)（含渲染图）。
 
+**预期终端输出**（自检基准，两版本输出完全一致，应逐字一致）：
+
+```text
+VCD info: dumpfile wave.vcd opened for output.
+[CHECK] matrix m0: res correct at t=10
+[CHECK] matrix m1: res correct at t=14
+[CHECK] matrix m2: res correct at t=10
+==============================================
+Errors : 0
+RESULT: PASS
+==============================================
+../tb/tb_MULT.v:199: $finish called at 306000 (1ps)
+```
+
+- `m0`（单发）在 **t=10** 正确：验证延迟推导 t=4m+10
+- `m1`（背靠背）在 **t=14** 正确：验证 II=4 连续流水互不污染
+- `m2`（换权重）在 **t=10** 正确：验证 load 清空流水、无旧值残留
+- 若某一行 `[CHECK]` 变为 `ERROR`，错误行会打印期望/实际字段值，按字段索引 `(i,j)` 反查对应 PE 与延迟链
+
+**预期波形**（单发场景，0–12 拍，GTKWave 实测渲染）：
+
+![实验三仿真波形](images/fig_lab3_waveform.png)
+
+可核对要点：`load` 拉高 4 拍（权重逐列装入）；注入后 `y_ij` 按 `t=4+j+i` 顺序到达列底；**t=10 所有 `y` 同时归零、结果被锁存**——与 2.3 节时序推导逐拍一致即正确。
+
 ## 6. 综合结果与解读
 
 ```bash
@@ -145,6 +170,24 @@ cd lab_3_reuse/syn（或 lab_3_standalone/syn） && yosys synth.ys
 | ---- | ---- | ---- | ---- |
 | 复用版 | 8547 | **37 级** | = 单 PE 内"Wallace 乘法 + Kogge–Stone 加法"路径 |
 | 独立版 | 7709 | **38 级** | ABC 对行为级 `*`/`+` 自由重构，面积略省 |
+
+`systolic_stat.txt`（复用版）关键段落：
+
+```text
+=== MULT ===
+     7922 wires
+     8547 cells
+      432   $_SDFFE_PN0P_
+      720   $_SDFF_PP0_
+     2068   $_AND_
+     2276   $_NAND_
+       ...
+```
+
+（`$_SDFF*` 为触发器单元，两版合计约 1150 个，即约 1200 个触发器的出处）
+`systolic_ltp.txt` 首行：`Longest topological path in MULT (length=37):`
+
+> 不同版本工具链数值可能略有出入（±5% 以内可接受），但「复用版与独立版关键路径几乎相同、面积差约 3%」的相对结论必须成立。
 
 解读（报告第 ③ 项素材）：
 

@@ -65,6 +65,16 @@ yosys -V           # 综合工具（注意是大写 -V）
 gtkwave --version  # 波形查看器
 ```
 
+预期输出（本机实测，版本号随套件更新略有差异，**能打印出版本行即正常**）：
+
+```text
+$ iverilog -v
+Icarus Verilog version 14.0 (devel) (s20260301-542-g04cc49350-dirty)
+...
+$ yosys -V
+Yosys 0.69+274 (git sha1 7513f8df8 Release GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)
+```
+
 > 提示"不是内部或外部命令"→ PATH 未生效：检查环境变量是否写入、路径是否含中文/空格、是否重开了终端。
 
 > **GTKWave 双击/启动后闪退、无任何窗口**（实际验证）：退出码 `0xC0000135`（-1073741515），即 **DLL 缺失**。原因是 PATH 只加了 `bin` 没加 `lib`——GTKWave 是 MinGW 程序，运行所需的 GTK/TCL 动态库在 `lib` 目录。**`bin` 和 `lib` 必须同时加入 PATH**，然后重开终端。启动时若打印 `GLib-GIO-WARNING: win32 session dbus binary not found` 属正常现象，不影响使用。
@@ -113,6 +123,16 @@ vvp simv
 gtkwave wave.vcd
 ```
 
+第 1 步编译成功**没有任何输出**，属正常现象。第 2 步预期终端输出（逐字对照）：
+
+```text
+VCD info: dumpfile wave.vcd opened for output.
+Simulation finished check waveform.
+tb/tb_adder4.v:37: $finish called at 40000 (1ps)
+```
+
+第 3 步 GTKWave 成功启动的标志：弹出图形窗口（标题栏含 `wave.vcd`），左侧信号树可展开 `tb_adder4`；启动时终端打印 `GLib-GIO-WARNING` 属正常。
+
 GTKWave 中点击左侧 `tb_adder4`，全选信号点 `Append`，应看到：
 
 | 时刻 | a | b | cin | sum | cout |
@@ -124,6 +144,17 @@ GTKWave 中点击左侧 `tb_adder4`，全选信号点 `Append`，应看到：
 ```bash
 # 4. 综合测试（输出门级资源统计，预期 12 个 NAND + 8 个 XOR）
 yosys -p "read_verilog rtl/adder4.v; synth; stat"
+```
+
+第 4 步预期输出（统计段，逐字对照）：
+
+```text
+3. Printing statistics.
+=== adder4 ===
+       20 wires
+       20 cells
+       12   $_NAND_
+        8   $_XOR_
 ```
 
 四步全部通过即说明环境完全可用。
@@ -168,6 +199,10 @@ lab1_adder/
 4. Verilog **大小写敏感**，模块名、端口名严格一致。
 5. 编译统一加 `-g2005`（课程代码按 Verilog-2001/2005 编写），避免工具默认标准差异导致 generate 块报错。
 6. 修改 PATH 后必须**重开终端**才生效。
+7. **Yosys 综合到 ABC 阶段报 `return code -2` 或直接失败**（实际验证）：多见于激活了
+   Anaconda/Miniconda `(base)` 环境的终端——conda 自带的 MinGW 动态库与套件的
+   `yosys-abc.exe` 冲突（退出码 `0xC0000139`）。解决：`conda deactivate` 后重试，
+   或新开一个不自动激活 conda 的终端；确保 PATH 中套件 `bin`、`lib` 位于 conda 目录之前。
 
 ---
 
